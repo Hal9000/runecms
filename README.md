@@ -8,8 +8,6 @@ that tool. It is abstracted from a portion of RuneBlog.
 
 In its present form, the <font size=+1><tt>rcms</tt></font> command simply takes a parameter.
 Your choices are:
-<p>
-
 <br><center><table width=90% cellpadding=5>
 <tr>
   <td valign=top><font size=+1><tt>rcms config</tt></font>  </td>

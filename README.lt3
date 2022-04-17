@@ -6,7 +6,6 @@ that tool. It is abstracted from a portion of RuneBlog.
 
 In its present form, the `rcms command simply takes a parameter.
 Your choices are:
-
 .xtable
 `[ rcms config]   :: Initialize `config.txt if necessary and edit with `vi
 `[ rcms generate] :: Find stale files under `source/ and generate them under `target/

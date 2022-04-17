@@ -10,6 +10,8 @@ end
 
 #  ^ save this somewhere
 # Also: bump version, new gem, ...
+# Maybe base entire thing on livetext?? Meaning a 
+# single .lt3 file to specify the entire project??
 
 Gem::Specification.new do |s|
   system("rm -f *.gem")

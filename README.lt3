@@ -5,18 +5,14 @@ It's based on Livetext, but could be generalized to be agnostic of
 that tool. It is abstracted from a portion of RuneBlog.
 
 In its present form, the `rcms command simply takes a parameter.
-These are:
+Your choices are:
 
 .xtable
-`[ rcms config] :: Initialize `config.txt if necessary and edit with `vi
-
+`[ rcms config]   :: Initialize `config.txt if necessary and edit with `vi
 `[ rcms generate] :: Find stale files under `source/ and generate them under `target/
-
-`[ rcms view] :: View the current state of `target/ via browser (local files)
-
-`[ rcms publish] :: Publish `target/ to the remote server
-
-`[ rcms browse] :: Browse the current state of the remote server
+`[ rcms view]     :: View the current state of `target/ via browser (local files)
+`[ rcms publish]  :: Publish `target/ to the remote server
+`[ rcms browse]   :: Browse the current state of the remote server
 .end
 
 At present, there is no check for these to be done in order. For example, 

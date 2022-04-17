@@ -6,37 +6,37 @@ It's based on Livetext, but could be generalized to be agnostic of
 that tool. It is abstracted from a portion of RuneBlog.
 <p>
 
-In its present form, the <font size=+1><tt>rcms`</tt></font> command simply takes a parameter.
+In its present form, the <font size=+1><tt>rcms</tt></font> command simply takes a parameter.
 These are:
 <p>
 
 <br><center><table width=90% cellpadding=5>
 <tr>
-  <td valign=top><font size=+1><tt>cms config</tt></font></td>
+  <td valign=top><font size=+1><tt>rcms config</tt></font></td>
   <td valign=top>Initialize <font size=+1><tt>config.txt</tt></font> if necessary and edit with <font size=+1><tt>vi</tt></font></td>
 </tr>
 <tr>
 </tr>
 <tr>
-  <td valign=top><font size=+1><tt>cms generate</tt></font></td>
+  <td valign=top><font size=+1><tt>rcms generate</tt></font></td>
   <td valign=top>Find stale files under <font size=+1><tt>source/</tt></font> and generate them under <font size=+1><tt>target/</tt></font></td>
 </tr>
 <tr>
 </tr>
 <tr>
-  <td valign=top><font size=+1><tt>cms view</tt></font></td>
+  <td valign=top><font size=+1><tt>rcms view</tt></font></td>
   <td valign=top>View the current state of <font size=+1><tt>target/</tt></font> via browser (local files)</td>
 </tr>
 <tr>
 </tr>
 <tr>
-  <td valign=top><font size=+1><tt>cms publish</tt></font></td>
+  <td valign=top><font size=+1><tt>rcms publish</tt></font></td>
   <td valign=top>Publish <font size=+1><tt>target/</tt></font> to the remote server</td>
 </tr>
 <tr>
 </tr>
 <tr>
-  <td valign=top><font size=+1><tt>cms browse</tt></font></td>
+  <td valign=top><font size=+1><tt>rcms browse</tt></font></td>
   <td valign=top>Browse the current state of the remote server</td>
 </tr>
 </table></center>

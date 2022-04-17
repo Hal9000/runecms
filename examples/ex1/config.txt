@@ -1,0 +1,3 @@
+server: foo.com
+path: /var/www/foo
+user: hal9000

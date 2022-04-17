@@ -1,7 +1,18 @@
 
+def usage_message
+  puts <<-TEXT
+    rcms config    Initialize config.txt if necessary and edit with vi
+    rcms generate  Find stale files under source/ and generate them under target/
+    rcms view      View the current state of target/ via browser (local files)
+    rcms publish   Publish target/ to the remote server
+    rcms browse    Browse the current state of the remote server
+  TEXT
+  exit
+end
+
 def find_files(dir)
   list = nil
-  Dir.chdir(dir) { list =  Find.find(".") }
+  Dir.chdir(dir) { list =  Find.find(".").to_a }
   list
 end
 
@@ -24,9 +35,9 @@ def read_config
   # Example: "user: hal9000"
   lines.each do |line|
     var, val = line.split(": ")
-    instance_variable_set(var, val.chomp)
+    instance_variable_set("@"+var, val.chomp.strip)
   end
-rescue
-  abort "Can't open config file"
+rescue => err
+  abort "Can't open config file: #{err}"
 end
 

@@ -1,0 +1,7 @@
+.h3 This file...
+
+is a `.lt3 file, which means livetext would process it
+before it is copied from source/ to target/
+
+That's all for now.
+

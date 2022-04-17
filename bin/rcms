@@ -1,16 +1,19 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH << "lib"
+$LOAD_PATH << "lib" 
+$LOAD_PATH << "../../lib"  # for examples/ex1/ etc.
 
 require 'runecms'
 
 # "Main"
 
-abort "Usage message" if ARGV.empty?
+usage_message if ARGV.empty?
 
 cmd = ARGV.first
 
 abort "Don't know #{cmd}" unless command?(cmd)
+
+read_config
 
 execute(cmd)
 

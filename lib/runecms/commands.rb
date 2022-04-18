@@ -1,18 +1,21 @@
 
 require 'find'
 
+CONFIG = "config.txt"
+
 def run_config
-  unless File.exist?("config.txt")
-    File.open("config.txt", "w") do |f|
+  unless File.exist?(CONFIG)
+    File.open(CONFIG, "w") do |f|
       f.puts "server: "
       f.puts "path:   "
       f.puts "user:   "
     end
   end
-  system("vi config.txt")
+  system("vi #{CONFIG}")
 end
 
 def run_generate
+  # FIXME doesn't handle missing subdirectories
   list = find_files("source") 
 # puts "Would generate from: "
 # list.each {|file| puts "  #{file}" }

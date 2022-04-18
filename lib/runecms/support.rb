@@ -1,5 +1,6 @@
 
 def usage_message
+  puts
   puts <<-TEXT
     rcms config    Initialize config.txt if necessary and edit with vi
     rcms generate  Find stale files under source/ and generate them under target/
@@ -7,14 +8,13 @@ def usage_message
     rcms publish   Publish target/ to the remote server
     rcms browse    Browse the current state of the remote server
   TEXT
+  puts
   exit
 end
 
 def find_files(dir)
-  list = nil
-  Dir.chdir(dir) { list =  Find.find(".").to_a }
-  list -= ["."]
-  list.map {|x| x.sub("./","") }
+  list = Find.find(dir).to_a - [dir]
+  list.map {|x| x.sub("#{dir}/","") }
 end
 
 def stale?(file)  # without source/ or target/

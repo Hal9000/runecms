@@ -14,15 +14,20 @@ end
 
 def run_generate
   list = find_files("source") 
-  puts "Would generate from: "
-  list.each {|file| puts "    #{file}" }
-  puts
+# puts "Would generate from: "
+# list.each {|file| puts "  #{file}" }
+# puts
+  list.each do |file|
+    if stale?(file)
+      print "  #{file} is stale: \n    => "
+      update_target(file)
+    end
+  end
 end
 
 def run_view
-  # system("open target/index.html")
-  puts "Would run:  'open target/index.html'"
-  puts
+  # FIXME index is hardcoded...
+  system("open target/index.html")
 end
 
 def run_publish

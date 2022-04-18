@@ -13,7 +13,8 @@ end
 def find_files(dir)
   list = nil
   Dir.chdir(dir) { list =  Find.find(".").to_a }
-  list
+  list -= ["."]
+  list.map {|x| x.sub("./","") }
 end
 
 def stale?(file)  # without source/ or target/
@@ -23,11 +24,38 @@ def stale?(file)  # without source/ or target/
   else
     file1 = file2 = file
   end
-  return true if ! File.exist?(file2)
+  return true if ! File.exist?("target/#{file2}")
 
   t1 = File.mtime("source/#{file1}")
   t2 = File.mtime("target/#{file2}")
   t1 > t2
+end
+
+def update_target(file)
+  file2 = fix_extension(file)
+  if lt3?(file) 
+    update = "livetext" 
+    redir = ">"
+  else
+    update = "cp"
+    redir = ""
+  end
+  cmd = "#{update} source/#{file} #{redir} target/#{file2}"
+  puts cmd
+  system(cmd)
+end
+
+def lt3?(file)
+  file.end_with?(".lt3")
+end
+
+def fix_extension(file)
+  if lt3?(file)
+    file2 = file.sub(/.lt3$/, ".html")
+  else
+    file2 = file
+  end
+  file2
 end
 
 def read_config

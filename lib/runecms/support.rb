@@ -34,6 +34,7 @@ def stale?(file)  # without source/ or target/
 end
 
 def update_target(file)
+  return if File.directory?(file)
   file2 = fix_extension(file)
   if lt3?(file) 
     update = "livetext" 

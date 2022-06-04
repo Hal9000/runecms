@@ -18,6 +18,7 @@ def run_generate
   verify_dirs    # handle missing subdirectories
   list = find_files("source") 
   list.each do |file|
+    next if File.directory?(file)
     if stale?(file)
       puts "  #{file} is stale"
       update_target(file)

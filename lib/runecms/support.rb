@@ -34,16 +34,16 @@ def stale?(file)  # without source/ or target/
 end
 
 def update_target(file)
-  return if File.directory?(file)
   file2 = fix_extension(file)
   if lt3?(file) 
-    update = "livetext" 
-    redir = ">"
+    cmd = "livetext source/#{file} > target/#{file2}"
   else
-    update = "cp"
-    redir = ""
+    if File.directory?(file)
+      cmd = "mkdir target/#{file2}"
+    else
+      cmd = "cp source/#{file} target/#{file2}"
+    end
   end
-  cmd = "#{update} source/#{file} #{redir} target/#{file2}"
   # puts cmd
   system(cmd)
 end

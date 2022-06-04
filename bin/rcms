@@ -3,6 +3,8 @@
 $LOAD_PATH << "lib" 
 $LOAD_PATH << "../../lib"  # for examples/ex1/ etc.
 
+require 'rubygems'
+
 require 'runecms'
 
 # "Main"

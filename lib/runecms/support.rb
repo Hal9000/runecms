@@ -6,6 +6,7 @@ def usage_message
     rcms generate  Find stale files under source/ and generate them under target/
     rcms view      View the current state of target/ via browser (local files)
     rcms publish   Publish target/ to the remote server
+    rcms update    Shortcut - Like a generate followed by a push
     rcms browse    Browse the current state of the remote server
   TEXT
   puts
@@ -18,6 +19,7 @@ def find_files(dir)
 end
 
 def stale?(file)  # without source/ or target/
+  return false if File.directory?(file)
   if file.end_with?(".lt3")
     file1 = file
     file2 = file.sub(/.lt3$/, ".html")
@@ -41,8 +43,20 @@ def update_target(file)
     redir = ""
   end
   cmd = "#{update} source/#{file} #{redir} target/#{file2}"
-  puts cmd
+  # puts cmd
   system(cmd)
+end
+
+def verify_dirs
+  src_dirs = []
+  Find.find("source") do |path|
+    src_dirs << path if File.directory?(path)
+  end
+
+  src_dirs.each do |path|
+    tdir = path.sub("source", "target")
+    Dir.mkdir(tdir) unless Dir.exist?(tdir)
+  end
 end
 
 def lt3?(file)

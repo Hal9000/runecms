@@ -15,14 +15,11 @@ def run_config
 end
 
 def run_generate
-  # FIXME doesn't handle missing subdirectories
+  verify_dirs    # handle missing subdirectories
   list = find_files("source") 
-# puts "Would generate from: "
-# list.each {|file| puts "  #{file}" }
-# puts
   list.each do |file|
     if stale?(file)
-      print "  #{file} is stale: \n    => "
+      puts "  #{file} is stale"
       update_target(file)
     end
   end
@@ -35,15 +32,20 @@ end
 
 def run_publish
   cmd = "rsync -r -z target/ #@user@#@server:#@path/"
-  # system(cmd)
-  puts "Would run: '#{cmd}'"
-  puts
+  system(cmd)
+# puts "Would run: '#{cmd}'"
+# puts
+end
+
+def run_update
+  run_generate
+  run_publish
 end
 
 def run_browse
-  # system("open #@server")
-  puts "Would run: 'open #@server'"
-  puts
+  system("open #@server")
+# puts "Would run: 'open #@server'"
+# puts
 end
 
 def command?(cmd)

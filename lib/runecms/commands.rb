@@ -1,41 +1,19 @@
 
 require 'find'
 
-CONFIG = "config.txt"
-
 def run_config
-  unless File.exist?(CONFIG)
-    File.open(CONFIG, "w") do |f|
+  unless read_config
+    File.open("config.txt", "w") do |f|
       f.puts "server: "
-      f.puts "path:   "
-      f.puts "user:   "
+      f.puts "path: "
+      f.puts "user: "
     end
   end
-  system("vi #{CONFIG}")
+  system("vi config.txt")
 end
 
 def run_generate
-  verify_dirs    # handle missing subdirectories
   list = find_files("source") 
-  list.each do |file|
-    next if File.directory?("source/#{file}")
-    if stale?(file)
-      puts "  #{file} is stale"
-      update_target(file)
-    end
-  end
-end
-
-def run_view
-  # FIXME index is hardcoded...
-  system("open target/index.html")
-end
-
-def run_publish
-  cmd = "rsync -r -z target/ #@user@#@server:#@path/"
-  system(cmd)
-# puts "Would run: '#{cmd}'"
-# puts
 end
 
 def run_update
@@ -43,10 +21,17 @@ def run_update
   run_publish
 end
 
+def run_view
+  system("open target/index.html")
+end
+
+def run_publish
+  cmd = "rsync -r -z target/ #@user@#@server:#@path/"
+  system(cmd)
+end
+
 def run_browse
   system("open #@server")
-# puts "Would run: 'open #@server'"
-# puts
 end
 
 def command?(cmd)

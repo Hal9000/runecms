@@ -1,0 +1,9 @@
+include directories (.lt3 and .html?)
+ignore certain files
+all .lt3 files depend on .rb files
+search upward for config.txt
+handle subdomains sensibly
+auto-dependencies
+explicit dependencies
+detect target leftovers
+"cleaning" tasks

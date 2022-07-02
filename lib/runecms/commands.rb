@@ -1,6 +1,23 @@
 
 require 'find'
 
+CONFIG = "config.txt"
+
+def run_version
+  puts RuneCMS::VERSION
+end
+
+def run_check
+  list = stale_files("source")
+  if stale.empty? 
+    puts "No stale files"
+  else
+    puts "Stale files:"
+    stale.each {|x| puts "  " + x }
+    puts
+  end
+end
+
 def run_config
   unless read_config
     File.open("config.txt", "w") do |f|
@@ -13,7 +30,18 @@ def run_config
 end
 
 def run_generate
-  list = find_files("source") 
+  verify_dirs    # handle missing subdirectories
+  list = stale_files("source") 
+  if stale.empty? 
+    puts "Nothing to do"
+  else
+    puts "Stale files:"
+    stale.each do |file| 
+      puts "  " + x
+      update_target(file)
+    end
+    puts
+  end
 end
 
 def run_update
@@ -22,6 +50,7 @@ def run_update
 end
 
 def run_view
+  # FIXME index is hardcoded...
   system("open target/index.html")
 end
 

@@ -3,6 +3,7 @@ def usage_message
   puts
   puts <<-TEXT
     rcms config    Initialize config.txt if necessary and edit with vi
+    rcms check     List stale files, but do nothing else
     rcms generate  Find stale files under source/ and generate them under target/
     rcms view      View the current state of target/ via browser (local files)
     rcms publish   Publish target/ to the remote server
@@ -13,10 +14,13 @@ def usage_message
   exit
 end
 
-def find_files(dir)
+def stale_files(dir)
   list = nil
-  Dir.chdir(dir) { list =  Find.find(".") }
-  list
+  path = "#{Dir.pwd}/#{dir}/"
+  list = Find.find(path).to_a
+  list = list.select {|x| ! File.directory?(x) }
+  list.map! {|x| x.sub(path, "") }
+  list.select {|x| stale?(x) }
 end
 
 def stale?(file)  # without source/ or target/
@@ -34,19 +38,44 @@ def stale?(file)  # without source/ or target/
   t1 > t2
 end
 
-# def stale?(file)  # without source/ or target/
-#   if file.end_with?(".lt3")
-#     file1 = file
-#     file2 = file.sub(/.lt3$/, ".html")
-#   else
-#     file1 = file2 = file
-#   end
-#   return true if ! File.exist?(file2)
-# 
-#   t1 = File.mtime("source/#{file1}")
-#   t2 = File.mtime("target/#{file2}")
-#   t1 > t2
-# end
+def update_target(file)
+  file2 = fix_extension(file)
+  if lt3?(file) 
+    cmd = "livetext source/#{file} > target/#{file2}"
+  else
+    if File.directory?(file)
+      cmd = "mkdir target/#{file2}"
+    else
+      cmd = "cp source/#{file} target/#{file2}"
+    end
+  end
+  system(cmd)
+end
+
+def verify_dirs
+  src_dirs = []
+  Find.find("source") do |path|
+    src_dirs << path if File.directory?(path)
+  end
+
+  src_dirs.each do |path|
+    tdir = path.sub("source", "target")
+    Dir.mkdir(tdir) unless Dir.exist?(tdir)
+  end
+end
+
+def lt3?(file)
+  file.end_with?(".lt3")
+end
+
+def fix_extension(file)
+  if lt3?(file)
+    file2 = file.sub(/.lt3$/, ".html")
+  else
+    file2 = file
+  end
+  file2
+end
 
 def read_config
   config = "config.txt"
@@ -60,11 +89,12 @@ def read_config
   # Example: "user: hal9000"
   lines.each do |line|
     var, val = line.split(": ")
-    instance_variable_set(var, val.chomp)
+    instance_variable_set("@" + var, val.chomp.strip)
   end
   return true
-rescue
-  abort "Can't read config file"
+rescue => e
+  puts "Can't read config file: here = #{here}  pwd = #{Dir.pwd}"
+  puts e
   return false
 end
 

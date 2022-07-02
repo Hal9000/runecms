@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+system("vi lib/runecms/version.rb +/VER")
+
+require "date"
+require "runecms"
+
+today = Date.today.strftime("%Y-%m-%d")
+version = RuneCMS::VERSION
+
+system("git pull")
+gs = `git status 2>&1`
+
+puts gs
+

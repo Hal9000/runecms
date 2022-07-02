@@ -1,20 +1,34 @@
+. Note: at present, paragraphs are broken in livetext. Hence the .br
+
 RuneCMS is intended to be a simple, lightweight tool for building
 and deploying static websites.
+
+.br 2
 
 It's based on Livetext, but could be generalized to be agnostic of
 that tool. It is abstracted from a portion of RuneBlog.
 
-In its present form, the `rcms` command simply takes a parameter.
-These are:
+.br 2
+
+In its present form, the `rcms command simply takes a parameter.
+Choices are:
+
+.br 2
 
 .xtable
+`[rcms version] :: Print the version number of RuneCMS
+
 `[rcms config] :: Initialize `config.txt if necessary and edit with `vi
+
+`[rcms check] ::  List stale files, but do nothing else
 
 `[rcms generate] :: Find stale files under `source/ and generate them under `target/
 
-`[rcms view] :: View the current state of `target/ via browser (local files)
-
 `[rcms publish] :: Publish `target/ to the remote server
+
+`[rcms update]  :: Shortcut - Like a generate followed by a publish
+
+`[rcms view] :: View the current state of `target/ via browser (local files)
 
 `[rcms browse] :: Browse the current state of the remote server
 .end
@@ -22,6 +36,8 @@ These are:
 At present, there is no check for these to be done in order. For example, 
 you could publish without a generate (analogous to editing a C program
 and running the executable without recompiling it).
+
+.br 2
 
 The assumption is made that keys for the user and server are already 
 set up. The `config.txt file looks like:
@@ -34,22 +50,32 @@ user: hal9000
 
 <hr>
 
+*[Original notes:]
+
 <pre>
-Idea: Website is stored in a directory tree. Use Livetext (etc.?) to create target files
+General idea: Website is stored in a directory tree. Use Livetext (etc.?) to create target files
 and rsync to upload.
+
+.br 2
 
 Config will comprise:
   - server
   - user
   - root/path
 
+.br 2
+
 Dir structure:
+
+.br 2
 
   site
    |
    +---- config.lt3
    +---- source/...
    +---- target/...
+
+.br 2
 
 Logic flow:
   1. Edit file(s) under source/ tree
@@ -63,6 +89,8 @@ Logic flow:
       # cmd = "rsync -r -z #{target}/ #@user@#@server:#{path}/"
 
 </pre>
+
+.br 2
 
 More details later...
 

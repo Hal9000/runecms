@@ -1,12 +1,15 @@
 require 'date'
 require 'find'
 
-require "lib/runecms"
+require_relative "lib/runecms"
 
 Gem::Specification.new do |s|
   def s.file_trees(*dirs)
     list = []
-    dirs.each {|dir| list += Find.find(dir).to_a }
+    dirs.each do |dir| 
+      stuff = Find.find(dir).to_a 
+      list += stuff
+    end
     list
   end
 
@@ -26,7 +29,7 @@ Gem::Specification.new do |s|
   s.executables << "rcms"
   
   # Files...
-  main = file_trees("bin", "lib", "examples", "test")
+  main = s.file_trees("bin", "lib", "examples", "test")
   misc = %w[./README.lt3 ./README.md runecms.gemspec]
 
   s.files       =  main + misc

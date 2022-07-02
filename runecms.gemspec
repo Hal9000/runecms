@@ -35,4 +35,5 @@ Gem::Specification.new do |s|
   s.files       =  main + misc
   s.homepage    = 'https://github.com/Hal9000/runecms'
   s.license     = "Ruby"
+  s.post_install_message = "\n  Success! For help, run 'rcms' with no parameters.\n "
 end

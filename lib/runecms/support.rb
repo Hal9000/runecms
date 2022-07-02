@@ -9,6 +9,14 @@ def usage_message
     rcms publish   Publish target/ to the remote server
     rcms update    Shortcut - Like a generate followed by a push
     rcms browse    Browse the current state of the remote server
+
+    Run from a directory with a config.txt, a source/ dir, and a target/ dir.
+
+    Config file looks like:
+      server: example.com
+      path: /some/arbitrary/path
+      user: myuser
+
   TEXT
   puts
   exit

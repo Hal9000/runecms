@@ -37,7 +37,7 @@ def run_generate
   else
     puts "Stale files:"
     stale.each do |file| 
-      puts "  " + x
+      puts "  " + file
       update_target(file)
     end
     puts

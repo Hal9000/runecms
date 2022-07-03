@@ -97,7 +97,9 @@ def read_config
   # Example: "user: hal9000"
   lines.each do |line|
     var, val = line.split(": ")
-    instance_variable_set("@" + var, val.chomp.strip)
+    var, val = "@" + var, val.chomp.strip
+    puts "Config: setting #{var} to #{val.inspect}"
+    instance_variable_set(var, val)
   end
   return true
 rescue => e

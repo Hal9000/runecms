@@ -34,6 +34,7 @@ def run_generate
   stale = stale_files("source") 
   if stale.empty? 
     puts "Nothing to do"
+    return false
   else
     puts "Stale files:"
     stale.each do |file| 
@@ -41,12 +42,13 @@ def run_generate
       update_target(file)
     end
     puts
+    return true
   end
 end
 
 def run_update
-  run_generate
-  run_publish
+  needed = run_generate
+  run_publish if needed
 end
 
 def run_view
@@ -56,6 +58,7 @@ end
 
 def run_publish
   cmd = "rsync -r -z target/ #@user@#@server:#@path/"
+  puts "Running:  #{cmd}"
   system(cmd)
 end
 
@@ -68,6 +71,7 @@ def command?(cmd)
 end
 
 def execute(cmd)
+  read_config
   send("run_#{cmd}")
 end
 

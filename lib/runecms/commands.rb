@@ -8,7 +8,7 @@ def run_version
 end
 
 def run_check
-  list = stale_files("source")
+  stale = stale_files("source")
   if stale.empty? 
     puts "No stale files"
   else
@@ -31,7 +31,7 @@ end
 
 def run_generate
   verify_dirs    # handle missing subdirectories
-  list = stale_files("source") 
+  stale = stale_files("source") 
   if stale.empty? 
     puts "Nothing to do"
   else

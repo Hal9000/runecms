@@ -7,3 +7,4 @@ auto-dependencies
 explicit dependencies
 detect target leftovers
 "cleaning" tasks
+non-source dirs going to different path? w/o processing? e.g., mbday_app

@@ -1,23 +1,9 @@
 require 'date'
-require 'find'
+require 'gemhelper'
 
 require_relative "lib/runecms"
 
 Gem::Specification.new do |s|
-  def s.file_trees(*dirs)
-    list = []
-    dirs.each do |dir| 
-      stuff = Find.find(dir).to_a 
-      list += stuff
-    end
-    list
-  end
-
-#  ^ save this somewhere
-# Also: bump version, new gem, ...
-# Maybe base entire thing on livetext?? Meaning a 
-# single .lt3 file to specify the entire project??
-
   system("rm -f *.gem")
   s.name        = 'runecms'
   s.version     = RuneCMS::VERSION
@@ -29,7 +15,7 @@ Gem::Specification.new do |s|
   s.executables << "rcms"
   
   # Files...
-  main = s.file_trees("bin", "lib", "examples", "test")
+  main = GemHelper.file_trees("bin", "lib", "examples", "test")
   misc = %w[./README.lt3 ./README.md runecms.gemspec]
 
   s.files       =  main + misc

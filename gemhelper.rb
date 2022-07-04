@@ -9,6 +9,7 @@ module GemHelper
     end
     list
   end
+end
 
 #  ^ save this somewhere
 # Also: bump version, new gem, ...

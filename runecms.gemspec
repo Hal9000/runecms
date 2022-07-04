@@ -1,5 +1,5 @@
 require 'date'
-require 'gemhelper'
+require_relative 'gemhelper'
 
 require_relative "lib/runecms"
 

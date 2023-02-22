@@ -9,6 +9,10 @@ module GemHelper
     end
     list
   end
+
+  def self.read_spec
+    File.readlines("gemdata")
+  end
 end
 
 #  ^ save this somewhere

@@ -57,7 +57,7 @@ def run_view
 end
 
 def run_publish
-  cmd = "rsync -r -z target/ #@user@#@server:#@path/"
+  cmd = "rsync -u -r -z target/ #@user@#@server:#@path/"
   # puts "Running:  #{cmd}"
   system(cmd)
 end
